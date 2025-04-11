@@ -1,0 +1,32 @@
+{
+    "scenes": [
+        {
+            "title": "We want you to answer a question",
+            "amountOfAnswers": 1,
+            "answers": [
+                "continue"
+            ],
+            "correctAnswer": 1
+        },
+        {
+            "title": "Do you like to smile?",
+            "amountOfAnswers": 2,
+            "answers": [
+                "yes",
+                "no"
+            ],
+            "correctAnswer": 1
+        },
+        {
+            "title": "What's 2+2?",
+            "amountOfAnswers": 4,
+            "answers": [
+                "4",
+                "8",
+                "1",
+                "9"
+            ],
+            "correctAnswer": 1
+        }
+    ]
+}
