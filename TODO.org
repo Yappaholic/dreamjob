@@ -1,0 +1,27 @@
+#+title: Todo
+
+* List of features that I need to implement into the game
+** Main features [1/5]
+- [-] Showing questions with answers [50%]
+  - [X] Show question title
+  - [X] Parse answers from json file
+  - [ ] Write a better function for drawing Text with rectangles (or find one)
+  - [ ] Place invisible rec to capture every possible amount of answers
+  - [ ] Inside invisible rec, place answer boxes in respect to their amount
+
+- [-] Answering questions [50%]
+  - [X] Check correct answer from json file
+  - [ ] Make a sane way to determine if the selected answer was correct or not
+
+- [ ] Showing wrong answer screen [0%]
+  - [ ] Work around sound length
+  - [ ] Find a better way to display error
+
+- [X] Moving between questions
+- [ ] Window resize with proper background resizing
+** Miscelanous [0%]
+- [ ] Add cursor on selected answer
+  - [ ] Decide how to properly capture text size
+
+- [ ] Add dynamically resizable text
+- [ ] Maybe add threading for complex calculations
