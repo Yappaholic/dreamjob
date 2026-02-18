@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 src.bin
 *.bin
 dreamjob
+=======
+/target
+.direnv
+>>>>>>> fc0a74c (init: some basic stuff and first 2 scenes)
