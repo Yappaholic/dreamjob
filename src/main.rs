@@ -100,7 +100,8 @@ fn get_background() -> Result<Image, io::Error> {
         "Failed to open media/ directory",
     ))?;
 
-    if let Ok(image) = Image::load_image_from_mem(".jpg", wheat_field.data.as_ref()) {
+    if let Ok(mut image) = Image::load_image_from_mem(".jpg", wheat_field.data.as_ref()) {
+        image.set_format(PixelFormat::PIXELFORMAT_UNCOMPRESSED_R8G8B8A8);
         Ok(image)
     } else {
         Err(io::Error::new(
@@ -213,6 +214,7 @@ fn main() {
         // Draw Error Screen
         } else if game.error_sound.is_playing() {
             game.is_error = true;
+            background_resized.color_tint(Color::RED);
             d.draw_text(
                 "WRONG",
                 game.window_width / 2,

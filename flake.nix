@@ -3,10 +3,17 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+    };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs @ {flake-parts, ...}:
+  outputs = inputs @ {
+    flake-parts,
+    rust-overlay,
+    ...
+  }:
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         # To import an internal flake module: ./other.nix
@@ -16,15 +23,19 @@
         #   3. Add here: foo.flakeModule
       ];
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: {
-        # Per-system attributes can be defined here. The self' and inputs'
+      perSystem = {system, ...}: let
+        pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [(import rust-overlay)];
+          config = {};
+        };
+        rust-dep =
+          pkgs.rust-bin.stable.latest.default.override
+          {
+            extensions = ["rust-src" "rust-analyzer" "rustfmt" "clippy"];
+            targets = ["wasm32-unknown-unknown"];
+          };
+      in {
         # module parameters provide easy access to attributes of the same
         # system.
 
@@ -32,6 +43,7 @@
         packages.default = pkgs.hello;
         devShells.default = pkgs.mkShell.override {stdenv = pkgs.clangStdenv;} {
           buildInputs = with pkgs; [
+            rust-dep
             cmake
             glfw
             clang
@@ -43,6 +55,7 @@
             libXi
             SDL2
             emscripten
+            trunk
           ];
           LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
         };
